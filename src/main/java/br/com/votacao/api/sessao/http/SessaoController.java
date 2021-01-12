@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sessoes")
+@RequestMapping("/v1/sessoes")
 @Api(tags = "sessao")
 public class SessaoController {
 

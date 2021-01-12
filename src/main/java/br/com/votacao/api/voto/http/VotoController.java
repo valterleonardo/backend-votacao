@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/votos")
+@RequestMapping("/v1/votos")
 @Api(tags = "voto")
 public class VotoController {
 
