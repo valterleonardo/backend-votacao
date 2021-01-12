@@ -6,7 +6,6 @@
 - JPA
 - Swagger2
 - Maven
-- OpenFeing
 - H2
 
 #### Iniciando a Aplicação - Spring local
