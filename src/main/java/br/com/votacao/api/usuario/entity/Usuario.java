@@ -1,4 +1,4 @@
-package br.com.votacao.api.usuario.model;
+package br.com.votacao.api.usuario.entity;
 
 import br.com.votacao.core.security.enums.Role;
 import lombok.Data;

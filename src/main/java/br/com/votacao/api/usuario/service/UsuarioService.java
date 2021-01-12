@@ -1,6 +1,6 @@
 package br.com.votacao.api.usuario.service;
 
-import br.com.votacao.api.usuario.model.Usuario;
+import br.com.votacao.api.usuario.entity.Usuario;
 import br.com.votacao.api.usuario.repository.UsuarioRepository;
 import br.com.votacao.core.security.JwtTokenProvider;
 import br.com.votacao.core.security.exception.CustomException;

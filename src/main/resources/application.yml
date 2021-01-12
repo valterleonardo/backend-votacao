@@ -29,8 +29,13 @@ security:
       expire-length: 300000
       
 UserController:
-  signin: Authenticates user and returns its JWT token.
-  signup: Creates user and returns its JWT token
-  delete: Deletes specific user by username
-  search: Returns specific user by username
-  me: Returns current user's data
+  signin: Autenticar usuário e retornar JWT token.
+  refresh: Atualizar login do usuário gerando novo token.
+
+PautaController:
+  cadastrar: Cadastrar Pauta de votação.
+  listar: Listar todas as Pautas de votação.
+
+SessaoController:
+  cadastrar: Cadastrar Sessão de votação.
+  listar: Listar todas as Sessões de votação.
