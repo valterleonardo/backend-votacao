@@ -8,16 +8,19 @@ import java.util.List;
 
 @Data
 public class UsuarioDTO {
-  
+
 	@ApiModelProperty(position = 0)
+	private Integer id;
+
+	@ApiModelProperty(position = 1)
 	private String username;
 	
-	@ApiModelProperty(position = 1)
+	@ApiModelProperty(position = 2)
 	private String email;
 	
-	@ApiModelProperty(position = 2)
+	@ApiModelProperty(position = 3)
 	private String password;
 	
-	@ApiModelProperty(position = 3)
+	@ApiModelProperty(position = 4)
 	List<Role> roles;
 }

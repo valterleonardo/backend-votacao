@@ -19,6 +19,7 @@ public class SessaoService {
 
     public SessaoDTO cadastrar(SessaoDTO sessaoDTO) {
         return toSessaoDTO(sessaoRepository.save(toSessao(sessaoDTO)));
+        //TODO cadastrar sessao no redis/memcached para receber votacoes
     }
 
     private Sessao toSessao(SessaoDTO sessaoDTO){
