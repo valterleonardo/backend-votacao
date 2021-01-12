@@ -29,6 +29,6 @@ public class Voto {
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
 
-    @Column(unique = true)
+    @Column
     private String cpf;
 }

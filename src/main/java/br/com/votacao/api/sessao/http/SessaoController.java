@@ -1,6 +1,7 @@
 package br.com.votacao.api.sessao.http;
 
 import br.com.votacao.api.sessao.dto.SessaoDTO;
+import br.com.votacao.api.sessao.dto.TotalSessaoDTO;
 import br.com.votacao.api.sessao.service.SessaoService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,13 @@ public class SessaoController {
         return sessaoService.listar();
     }
 
-    //TODO contar votos sessao
+
+    @GetMapping("/{sessaoId}/totalizar")
+    @ApiOperation(value = "${SessaoController.totalizar}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = ALGUMA_COISA_SAIU_ERRADO),
+            @ApiResponse(code = 422, message = USUARIO_OU_SENHA_INVALIDOS)})
+    public TotalSessaoDTO totalizar(@PathVariable Long sessaoId){
+        return sessaoService.totalizar(sessaoId);
+    }
 }

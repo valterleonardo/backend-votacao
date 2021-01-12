@@ -41,6 +41,7 @@ PautaController:
 SessaoController:
   cadastrar: Cadastrar Sessão de votação.
   listar: Listar todas as Sessões de votação.
+  totalizar: Totalizar votos da sessão.
 
 VotoController:
   votar: Cadastrar VOTO.

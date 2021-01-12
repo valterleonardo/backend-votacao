@@ -3,8 +3,12 @@ package br.com.votacao.api.sessao.service;
 import br.com.votacao.api.pauta.dto.PautaDTO;
 import br.com.votacao.api.pauta.entity.Pauta;
 import br.com.votacao.api.sessao.dto.SessaoDTO;
+import br.com.votacao.api.sessao.dto.TotalSessaoDTO;
 import br.com.votacao.api.sessao.entity.Sessao;
 import br.com.votacao.api.sessao.repository.SessaoRepository;
+import br.com.votacao.api.voto.entity.Voto;
+import br.com.votacao.api.voto.enums.Escolha;
+import br.com.votacao.api.voto.service.VotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,9 @@ public class SessaoService {
 
     @Autowired
     private SessaoRepository sessaoRepository;
+    @Autowired
+    private VotoService votoService;
+
     private static final Integer defaultPeriodo = 60;
 
     public SessaoDTO cadastrar(SessaoDTO sessaoDTO) {
@@ -62,5 +69,15 @@ public class SessaoService {
     public Sessao getSessao(Long id) {
         Optional<Sessao> sessao = sessaoRepository.findById(id);
         return sessao.isPresent() ? sessao.get() : null;
+    }
+
+    public TotalSessaoDTO totalizar(Long sessaoId) {
+        List<Voto> votos = votoService.buscarVotosPorSessaoId(sessaoId);
+        TotalSessaoDTO totalSessaoDTO = new TotalSessaoDTO();
+        totalSessaoDTO.setTotalVotos(votos.stream().count());
+        totalSessaoDTO.setTotalSim(votos.stream().filter(t -> t.getEscolha() == Escolha.SIM).count());
+        totalSessaoDTO.setTotalNao(votos.stream().filter(t -> t.getEscolha() == Escolha.NAO).count());
+        totalSessaoDTO.setVencedor(totalSessaoDTO.getTotalNao() > totalSessaoDTO.getTotalSim() ? Escolha.NAO : Escolha.SIM);
+        return totalSessaoDTO;
     }
 }

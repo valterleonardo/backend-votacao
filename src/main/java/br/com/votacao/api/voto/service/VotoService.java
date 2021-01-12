@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class VotoService {
@@ -35,14 +36,23 @@ public class VotoService {
         Voto voto = toVoto(votoDTO);
 
         validarSessaoAtiva(votoDTO.getSessaoDTO().getId());
-        validarCpf(votoDTO.getCpf());
+        //TODO Descomentar
+        //validarCpf(votoDTO.getCpf());
         validarVotoDuplicado(voto);
 
         return toVotoDTO(votoRepository.save(voto));
     }
 
     private void validarVotoDuplicado(Voto voto) {
-        if(votoRepository.exists(Example.of(voto)))
+        Voto votoFilter = new Voto();
+
+        votoFilter.setCpf(voto.getCpf());
+        votoFilter.setUsuario(new Usuario());
+        votoFilter.getUsuario().setId(voto.getUsuario().getId());
+        votoFilter.setSessao(new Sessao());
+        votoFilter.getSessao().setId(voto.getSessao().getId());
+
+        if(votoRepository.exists(Example.of(votoFilter)))
             throw new VotoException("Você já votou nesta sessão.", HttpStatus.BAD_REQUEST);
     }
 
@@ -114,5 +124,9 @@ public class VotoService {
         voto.setUsuario(new Usuario());
         voto.getUsuario().setId(votoDTO.getUsuarioDTO().getId());
         return voto;
+    }
+
+    public List<Voto> buscarVotosPorSessaoId(Long sessaoId) {
+        return votoRepository.buscarVotosPorSessaoId(sessaoId);
     }
 }
