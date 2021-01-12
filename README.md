@@ -5,7 +5,6 @@
 - Lombook
 - JPA
 - Swagger2
-- Docker
 - Maven
 - OpenFeing
 - H2
