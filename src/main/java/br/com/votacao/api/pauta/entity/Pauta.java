@@ -1,11 +1,13 @@
 package br.com.votacao.api.pauta.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@ToString
 public class Pauta {
 
     @Id

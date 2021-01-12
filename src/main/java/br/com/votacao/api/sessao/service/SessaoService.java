@@ -9,6 +9,7 @@ import br.com.votacao.api.sessao.repository.SessaoRepository;
 import br.com.votacao.api.voto.entity.Voto;
 import br.com.votacao.api.voto.enums.Escolha;
 import br.com.votacao.api.voto.service.VotoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class SessaoService {
 
@@ -28,7 +30,9 @@ public class SessaoService {
     private static final Integer defaultPeriodo = 60;
 
     public SessaoDTO cadastrar(SessaoDTO sessaoDTO) {
-        return toSessaoDTO(sessaoRepository.save(toSessao(sessaoDTO)));
+        Sessao sessao = sessaoRepository.save(toSessao(sessaoDTO));
+        log.info("Sessao cadastrada: " + sessao.toString());
+        return toSessaoDTO(sessao);
     }
 
     private Sessao toSessao(SessaoDTO sessaoDTO){
@@ -63,6 +67,7 @@ public class SessaoService {
                                 new PautaDTO(sessao.getPauta().getId(), sessao.getPauta().getDescricao())
                                 ));
         }
+        log.info("Sessao listadas: " + sessoes.toString());
         return sessoesDTO;
     }
 
@@ -78,6 +83,7 @@ public class SessaoService {
         totalSessaoDTO.setTotalSim(votos.stream().filter(t -> t.getEscolha() == Escolha.SIM).count());
         totalSessaoDTO.setTotalNao(votos.stream().filter(t -> t.getEscolha() == Escolha.NAO).count());
         totalSessaoDTO.setVencedor(totalSessaoDTO.getTotalNao() > totalSessaoDTO.getTotalSim() ? Escolha.NAO : Escolha.SIM);
+        log.info("Totalizador: " + totalSessaoDTO.toString());
         return totalSessaoDTO;
     }
 }

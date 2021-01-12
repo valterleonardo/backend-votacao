@@ -13,6 +13,7 @@ import br.com.votacao.api.voto.dto.VotoDTO;
 import br.com.votacao.api.voto.entity.Voto;
 import br.com.votacao.api.voto.exception.VotoException;
 import br.com.votacao.api.voto.repository.VotoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class VotoService {
 
@@ -36,11 +38,13 @@ public class VotoService {
         Voto voto = toVoto(votoDTO);
 
         validarSessaoAtiva(votoDTO.getSessaoDTO().getId());
-        //TODO Descomentar
-        //validarCpf(votoDTO.getCpf());
+        validarCpf(votoDTO.getCpf());
         validarVotoDuplicado(voto);
 
-        return toVotoDTO(votoRepository.save(voto));
+        voto = votoRepository.save(voto);
+        log.info("Votacao realizada com suceso: " + votoDTO.getCpf() + " as " + new Date());
+
+        return toVotoDTO(voto);
     }
 
     private void validarVotoDuplicado(Voto voto) {
@@ -64,14 +68,8 @@ public class VotoService {
     }
 
     private void validarPeriodo(Sessao sessao) {
-        Date dataCricao = sessao.getData();
-        System.out.println("DataCriacao" + dataCricao);
-        Integer periodo = sessao.getPeriodo();
-        System.out.println("Periodo: " + periodo);
-        Date dataLimite = adicionarPeriodoEmSegundos(dataCricao, periodo);
-        System.out.println("DataLimite: " + dataLimite);
+        Date dataLimite = adicionarPeriodoEmSegundos(sessao.getData(), sessao.getPeriodo());
         Date atual = new Date();
-        System.out.println("Atual: " + atual);
         if(atual.after(dataLimite))
             throw new VotoException("Sessao encerrada, não poderá mais votar nessa sessão!", HttpStatus.BAD_REQUEST);
     }

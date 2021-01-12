@@ -1,32 +1,21 @@
-# backend-votacao
+# Bem vindo a Aplicação BackEnd do Sistema de Votações
 
-Este backend auxiliará um projeto de votação.
+## Tecnologias
+- SpringBoot
+- Lombook
+- JPA
+- Swagger2
+- Docker
+- Maven
+- OpenFeing
+- H2
 
+#### Iniciando a Aplicação - Spring local
+- Crie uma pasta para o projeto
+- Baixe o projeto ou dê um `git clone`
+- Dê um clean no projeto com o maven `mvn clean`
+- Compile o projeto `mvn install`
+- Inicialize o projeto - `mvn spring-boot:run`
 
-
-### Cadastrar nova Pauta - OK
-#### --- Post (banco)
-
-### Abrir sessão de votação vinculado a pauta
-#### --- receber tempo que deve ficar aberto
-#### --- receber pauta
-#### --- gravar no redis e banco
-
-### Receber Votos associados a pauta
-#### --- Receber sim / não
-#### --- aceitar apenas 1 voto por usuario por pauta
-
-#### Utilizar redis para controlar sessao aberta
-#### validar CPF com GET https://user-info.herokuapp.com/users/{cpf}
-Caso o CPF seja inválido, a API retornará o HTTP Status 404 (Not found). Você pode
-usar geradores de CPF para gerar CPFs válidos;
-Caso o CPF seja válido, a API retornará se o usuário pode (ABLE_TO_VOTE) ou não
-pode (UNABLE_TO_VOTE) executar a operação
-
-
-#### scheduler que verificar sessoes
-#### Se a sessao fechou, postar o resultado da sessao numa fila
-
-#### versionamento da api v1/ swagger
-
-#### dockerizar
+#### Acessar documentação da aplicação com Swagger
+- Após subir a aplicação, acessar: `http://localhost:8000/swagger-ui.html`
