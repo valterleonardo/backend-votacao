@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.votacao.core.security.enums.Role;
-import br.com.votacao.core.security.exception.CustomException;
+import br.com.votacao.core.security.exception.SecurityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -80,7 +80,7 @@ public class JwtTokenProvider {
 			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
 			return true;
 		} catch (JwtException | IllegalArgumentException e) {
-			throw new CustomException("Token inválido ou expirado.", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new SecurityException("Token inválido ou expirado.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

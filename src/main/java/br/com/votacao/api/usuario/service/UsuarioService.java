@@ -1,11 +1,10 @@
 package br.com.votacao.api.usuario.service;
 
-import br.com.votacao.api.usuario.model.Usuario;
+import br.com.votacao.api.usuario.entity.Usuario;
 import br.com.votacao.api.usuario.repository.UsuarioRepository;
 import br.com.votacao.core.security.JwtTokenProvider;
-import br.com.votacao.core.security.exception.CustomException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import br.com.votacao.core.security.exception.SecurityException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UsuarioService {
 
@@ -29,16 +29,14 @@ public class UsuarioService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	private static Logger logger = LoggerFactory.getLogger(UsuarioService.class);
-
 	public String signin(String username, String password) {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 			String token = jwtTokenProvider.createToken(username, usuarioRepository.findByUsername(username).getRoles());
-			logger.info("\"" + username + "\"" + " signin success");
+			log.info("\"" + username + "\"" + " login realizado com sucesso");
 			return token;
 	    } catch (AuthenticationException e) {
-	    	throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+	    	throw new SecurityException("Username/Senha inválidos.", HttpStatus.UNPROCESSABLE_ENTITY);
 	    }
 
   	}
@@ -49,13 +47,13 @@ public class UsuarioService {
 			usuarioRepository.save(usuario);
 			return jwtTokenProvider.createToken(usuario.getUsername(), usuario.getRoles());
 	    } else {
-	    	throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
+	    	throw new SecurityException("Username já está em uso.", HttpStatus.UNPROCESSABLE_ENTITY);
 	    }
 	}
 
 	public String refresh(String username) {
 		String token = jwtTokenProvider.createToken(username, usuarioRepository.findByUsername(username).getRoles());
-		logger.info("\"" + username + "\"" + " refresh token success");
+		log.info("\"" + username + "\"" + " Token atualizado com sucesso.");
 	    return token;
 	}
 }

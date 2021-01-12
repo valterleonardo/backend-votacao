@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 @Api(tags = "users")
 public class UsuarioController {
 
@@ -20,7 +20,7 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 	@PostMapping("/signin")
-	@ApiOperation(value = "${UserController.signin}")
+	@ApiOperation(value = "${UsuarioController.signin}")
 	@ApiResponses(value = {
 			@ApiResponse(code = 400, message = ALGUMA_COISA_SAIU_ERRADO),
 			@ApiResponse(code = 422, message = USUARIO_OU_SENHA_INVALIDOS)})
@@ -29,7 +29,11 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/refresh")
+	@ApiOperation(value = "${UsuarioController.refresh}")
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+	@ApiResponses(value = {
+			@ApiResponse(code = 400, message = ALGUMA_COISA_SAIU_ERRADO),
+			@ApiResponse(code = 422, message = USUARIO_OU_SENHA_INVALIDOS)})
 	public String refresh(HttpServletRequest req) {
 	    return usuarioService.refresh(req.getRemoteUser());
 	}

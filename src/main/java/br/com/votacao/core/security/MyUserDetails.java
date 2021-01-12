@@ -1,6 +1,6 @@
 package br.com.votacao.core.security;
 
-import br.com.votacao.api.usuario.model.Usuario;
+import br.com.votacao.api.usuario.entity.Usuario;
 import br.com.votacao.api.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
 package br.com.votacao;
 
-import br.com.votacao.api.usuario.model.Usuario;
+import br.com.votacao.api.usuario.entity.Usuario;
 import br.com.votacao.api.usuario.service.UsuarioService;
 import br.com.votacao.core.security.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class VotacaoApplication implements CommandLineRunner {
 	    admin.setEmail("admin@email.com");
 	    admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
 
-		System.out.println("inserting: " + admin);
 	    usuarioService.signup(admin);
+		System.out.println("inserting: " + admin);
 
 	    Usuario client = new Usuario();
 	    client.setUsername("client");
@@ -38,7 +38,7 @@ public class VotacaoApplication implements CommandLineRunner {
 	    client.setEmail("client@email.com");
 	    client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
 
-		System.out.println("inserting: "+ client);
 	    usuarioService.signup(client);
+		System.out.println("inserting: "+ client);
   	}
 }
