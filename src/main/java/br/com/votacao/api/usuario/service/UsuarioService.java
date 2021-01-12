@@ -3,7 +3,7 @@ package br.com.votacao.api.usuario.service;
 import br.com.votacao.api.usuario.entity.Usuario;
 import br.com.votacao.api.usuario.repository.UsuarioRepository;
 import br.com.votacao.core.security.JwtTokenProvider;
-import br.com.votacao.core.security.exception.CustomException;
+import br.com.votacao.core.security.exception.SecurityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class UsuarioService {
 			logger.info("\"" + username + "\"" + " signin success");
 			return token;
 	    } catch (AuthenticationException e) {
-	    	throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+	    	throw new SecurityException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
 	    }
 
   	}
@@ -49,7 +49,7 @@ public class UsuarioService {
 			usuarioRepository.save(usuario);
 			return jwtTokenProvider.createToken(usuario.getUsername(), usuario.getRoles());
 	    } else {
-	    	throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
+	    	throw new SecurityException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
 	    }
 	}
 

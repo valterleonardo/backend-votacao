@@ -21,6 +21,9 @@ public class Sessao {
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
 
+    @Column
+    private Integer periodo;
+
     @ManyToOne
     private Pauta pauta;
 }

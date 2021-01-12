@@ -17,6 +17,7 @@ public class VotoDTO {
     private Long id;
     private Escolha escolha;
     private Date data;
+    private String cpf;
     private UsuarioDTO usuarioDTO;
     private SessaoDTO sessaoDTO;
 }

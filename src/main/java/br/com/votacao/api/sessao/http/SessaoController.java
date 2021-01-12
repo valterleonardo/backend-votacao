@@ -36,4 +36,6 @@ public class SessaoController {
     public List<SessaoDTO> listar(){
         return sessaoService.listar();
     }
+
+    //TODO contar votos sessao
 }

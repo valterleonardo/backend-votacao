@@ -3,7 +3,8 @@
 Este backend auxiliará um projeto de votação.
 
 
-### Cadastrar nova Pauta
+
+### Cadastrar nova Pauta - OK
 #### --- Post (banco)
 
 ### Abrir sessão de votação vinculado a pauta
@@ -26,6 +27,6 @@ pode (UNABLE_TO_VOTE) executar a operação
 #### scheduler que verificar sessoes
 #### Se a sessao fechou, postar o resultado da sessao numa fila
 
-#### versionamento da api v1/
+#### versionamento da api v1/ swagger
 
 #### dockerizar

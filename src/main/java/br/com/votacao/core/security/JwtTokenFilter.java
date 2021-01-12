@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.votacao.core.security.exception.CustomException;
+import br.com.votacao.core.security.exception.SecurityException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,7 +28,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 				Authentication auth = jwtTokenProvider.getAuthentication(token);
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
-		} catch (CustomException ex) {
+		} catch (SecurityException ex) {
 			SecurityContextHolder.clearContext();
 			httpServletResponse.sendError(ex.getHttpStatus().value(), ex.getMessage());
 			return;
