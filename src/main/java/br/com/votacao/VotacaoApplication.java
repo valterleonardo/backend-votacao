@@ -1,6 +1,6 @@
 package br.com.votacao;
 
-import br.com.votacao.api.usuario.model.Usuario;
+import br.com.votacao.api.usuario.entity.Usuario;
 import br.com.votacao.api.usuario.service.UsuarioService;
 import br.com.votacao.core.security.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package br.com.votacao.api.usuario.repository;
 
-import br.com.votacao.api.usuario.model.Usuario;
+import br.com.votacao.api.usuario.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
